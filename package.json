@@ -1,6 +1,6 @@
 {
   "name": "@iml/number-formatters",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Various number formatting / conversion modules.",
   "main": "source/index.js",
   "scripts": {
