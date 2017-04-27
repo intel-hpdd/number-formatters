@@ -1,6 +1,6 @@
 {
   "name": "@mfl/number-formatters",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Various number formatting / conversion modules.",
   "main": "source/index.js",
   "scripts": {
