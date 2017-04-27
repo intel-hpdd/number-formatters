@@ -1,5 +1,5 @@
 {
-  "name": "@iml/number-formatters",
+  "name": "@mfl/number-formatters",
   "version": "1.0.0",
   "description": "Various number formatting / conversion modules.",
   "main": "source/index.js",
@@ -10,7 +10,7 @@
     "eslint": "eslint ./"
   },
   "publishConfig": {
-    "registry": "https://ubit-artifactory-or.intel.com/artifactory/api/npm/iml-npm-local"
+    "access": "public"
   },
   "pre-commit": [
     "flow",
@@ -19,38 +19,35 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.intel.com:IML/node-babel-boilerplate.git"
+    "url": "https://github.com/intel-hpdd/number-formatters.git"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js",
     "resetModules": true,
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "./setup-jasmine-env.js",
       "test"
     ],
     "transformIgnorePatterns": [
-      "/node_modules/(?!@iml)/"
+      "/node_modules/(?!@mfl)/"
     ]
   },
   "author": "IML Team",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "7.1.1",
+    "@mfl/flow-jasmine": "1.6.1",
+    "@mfl/jasmine-n-matchers": "2.1.1",
+    "babel-eslint": "7.2.3",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
-    "babel-preset-env": "1.2.2",
-    "eslint": "3.18.0",
-    "eslint-config-prettier": "1.5.0",
-    "eslint-plugin-flowtype": "2.30.3",
+    "babel-preset-env": "1.4.0",
+    "eslint": "3.19.0",
+    "eslint-config-prettier": "1.7.0",
+    "eslint-plugin-flowtype": "2.32.1",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-prettier": "2.0.1",
-    "flow-bin": "0.42.0",
-    "intel-flow-jasmine": "1.6.0",
-    "intel-jasmine-n-matchers": "2.1.1",
-    "jasmine-reporters": "2.2.1",
+    "flow-bin": "0.44.2",
     "jest": "19.0.2",
     "pre-commit": "1.2.2",
-    "prettier": "0.22.0"
+    "prettier": "1.2.2"
   },
   "dependencies": {}
 }
