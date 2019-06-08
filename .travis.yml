@@ -1,17 +1,33 @@
-language: node_js
-node_js:
-- 6
-- 7
-cache: yarn
-script:
-- yarn run eslint
-- yarn run flow
-- yarn run cover
-deploy:
-  provider: npm
-  email: joe.grund@intel.com
-  api_key:
-    secure: P/GfKEgiZ4G3ZSNrx4qqHghCiVKDY6HtmNAEN6Lw0tTtAEQMmg5gCdHJZUpQJ8Ts9WlvuUMYHv6TqSibyVCEAaNr0EGrZJK+Wpog2uCDYIch+sxmAsc4OMeBNFSJw7gq1FuUX4BFLPahyHqtMtASVYRq4GbvdLq9OJ8xCxEXodYbz0lCUA52if61T+t14F4hU1va7gLHK1D0gRbyRfy6B0Ez35/1mbSjCZC0JXuwWaQdAZJcAd0YuNtMureXJX25MtMkK2schNWHdsEryuOHROfBxyqXUfS+sYqe5tvFda3GnAXMXrAPdY5zE1m7xW8uaWCQMvCS6HWaTVMLahH4kzG+y/CerleLxrwl0Y/qiL4zlWWeUAklRM48R9ahGvScwr0y07yS6AP641JRK3iICs74+9Eiu/DwpHsKEqphK/8DfEyQlBK5lrtfSY6BS2koBZlPuUJJ9VcqBfP+WCGgXisRxahtEBmVLSJGO1jjG4IhbRps+DyAaTn4zv/4ffzglKWvN0fwayQqSK2JSlKdKBW9yeYlh+Jud7kDenpobwyqYPmZllUUaLVyHCqJfiT3md8fjrnWX1/fl4BtO4tlaIP1B6Cqy5jcIipZ+2e8EpJ2wen3pZQMkzyVzCP0b79reM2WIV8451W+wzPH1J2KSuA5l+JyZyVbuzthOC+Fc1g=
-  on:
-    tags: true
-    repo: intel-hpdd/number-formatters
+language: generic
+addons:
+  apt:
+    update: true
+jobs:
+  include:
+    - stage: test
+      env: Type='Test Checks'
+      language: node_js
+      node_js:
+        - "8"
+      before_script:
+        - npm i -g add codecov
+      script:
+        - npm run eslint
+        - npm run flow
+        - npm run cover -- --runInBand
+      after_success:
+        - codecov
+    - stage: deploy-npm
+      env: Type='NPM Deploy'
+      deploy:
+        provider: npm
+        email: "$NPM_EMAIL"
+        skip_cleanup: true
+        api_key: "$NPM_TOKEN"
+        on:
+          all_branches: true
+          repo: whamcloud/number-formatters
+stages:
+  - test
+  - name: deploy-npm
+    if: branch =~ ^v\d+\.\d+\.\d+-1.*$
