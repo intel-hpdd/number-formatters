@@ -1,32 +1,21 @@
-language: generic
-addons:
-  apt:
-    update: true
+language: node_js
+node_js: "10"
 jobs:
   include:
     - stage: test
-      env: Type='Test Checks'
-      language: node_js
-      node_js:
-        - "8"
-      before_script:
-        - npm i -g add codecov
+      name: "Lint & Test"
       script:
         - npm run eslint
-        - npm run flow
-        - npm run cover -- --runInBand
-      after_success:
-        - codecov
+        - npm run test
     - stage: deploy-npm
-      env: Type='NPM Deploy'
+      name: "npm Deploy"
+      script: skip
       deploy:
         provider: npm
         email: "$NPM_EMAIL"
-        skip_cleanup: true
         api_key: "$NPM_TOKEN"
         on:
           all_branches: true
-          repo: whamcloud/number-formatters
 stages:
   - test
   - name: deploy-npm
